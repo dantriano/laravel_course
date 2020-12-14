@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\ProductListRequest;
 
 class ProductController extends Controller
 {
@@ -15,22 +15,24 @@ class ProductController extends Controller
         $this->product=new Product();
     }
     public function save(){
+        /* $product = new Product;
+         $product->name = 'Pastel Richos Style';
+         $product->desc  = 'chessecake';
+         $product->price  = 40.20;
+         $product->save();
+         */ 
     }
-    public function list(){
+    public function list(ProductListRequest $request){        
+        //$request->flash();
+        //old('price');
 
         $products = $this->product->query();
-        
-        if($priceChecked)
-            $products->priceMax('15');
-        if($typeChecked)
-            $products->type('bebidas');
-        
-       /* $product = new Product;
-        $product->name = 'Pastel Richos Style';
-        $product->desc  = 'chessecake';
-        $product->price  = 40.20;
-        $product->save();
-        */
+        if($request->filled('price')){
+            $products->priceMin($request->input('price'));
+        }
+       if($request->ajax()){
+           return $products->get();
+       }
         return view('products')->with('productos',$products->get());
     }
 }

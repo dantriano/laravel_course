@@ -15,6 +15,7 @@ apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    npm \
     git
 
 # Clear cache
