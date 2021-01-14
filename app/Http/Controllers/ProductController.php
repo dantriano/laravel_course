@@ -8,31 +8,46 @@ use App\Http\Requests\ProductListRequest;
 class ProductController extends Controller
 {
     public $product;
-    public $a;
-    public $b;
+    //public $a;
+    //public $b;
 
-    public function __construct(){
-        $this->product=new Product();
+    public function __construct()
+    {
+        $this->product = new Product();
     }
-    public function save(){
+    public function save()
+    {
         /* $product = new Product;
          $product->name = 'Pastel Richos Style';
          $product->desc  = 'chessecake';
          $product->price  = 40.20;
          $product->save();
-         */ 
+         */
     }
-    public function list(ProductListRequest $request){        
-        //$request->flash();
-        //old('price');
+    public function list(ProductListRequest $request)
+    {
+        //This option allow to keep the value in the view Form using:
+        //{{old('priceMin')}}
+        $request->flash();
 
         $products = $this->product->query();
-        if($request->filled('price')){
-            $products->priceMin($request->input('price'));
+
+        if ($request->filled('priceMin')) {
+            $products->priceMin($request->input('priceMin'));
         }
-       if($request->ajax()){
-           return $products->get();
-       }
-        return view('products')->with('productos',$products->get());
+
+        if ($request->filled('priceMax')) {
+            $products->priceMin($request->input('priceMin'));
+        }
+
+        if ($request->filled('name')) {
+            $products->name($request->input('name'));
+        }
+
+        if ($request->filled('type')) {
+            $products->type($request->input('type'));
+        }
+
+        return view('products')->with('productos', $products->get());
     }
 }

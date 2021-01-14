@@ -17,9 +17,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/login', 'LoginController@login')->name('login');
+//Route::post('/login', 'LoginController@login')->name('login');
+
 Route::get('/products', 'ProductController@list');
 Route::post('/products', 'ProductController@list');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/login', 'LoginController@login')->name('login');
-Route::post('/login', 'LoginController@login')->name('login');
+//Route::get('/axios', 'ProductController@list');
+
