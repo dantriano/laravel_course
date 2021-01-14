@@ -47,7 +47,9 @@ class ProductController extends Controller
         if ($request->filled('type')) {
             $products->type($request->input('type'));
         }
-
+        
+        //To work with API, we will return the data as json (no used for now)
+        //if ($request->ajax()) return response()->json($products->get());
         return view('products')->with('productos', $products->get());
     }
 }

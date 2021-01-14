@@ -19,10 +19,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-
-
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
- 
+
 
     <!-- Styles -->
     <style>
@@ -81,7 +79,7 @@
 </head>
 
 <body>
-    <div class="flex-center position-ref full-height">
+    <div class="flex-center position-ref">
         @if (Route::has('login'))
         <div class="top-right links">
             @auth
@@ -95,7 +93,7 @@
             @endauth
         </div>
         @endif
-        <main class="py-4">
+        <main class="container">
             @yield('content')
         </main>
     </div>

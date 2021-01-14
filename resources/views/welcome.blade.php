@@ -86,7 +86,7 @@
 
                 <div class="links">
                     <a href="{{ url('/products/') }}">Products Filter</a>
-                    <!--<a href="{{ url('/products/') }}">Fiter Axios</a>-->
+                    <a href="{{ url('/products/?axios=true') }}">Fiter Axios</a>
                 </div>
             </div>
         </div>
