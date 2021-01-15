@@ -31,4 +31,7 @@ docker-php-ext-install gd
 # Install composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+composer install
+npm install
+
 php-fpm
