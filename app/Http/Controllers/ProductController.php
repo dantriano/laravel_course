@@ -37,7 +37,7 @@ class ProductController extends Controller
         }
 
         if ($request->filled('priceMax')) {
-            $products->priceMin($request->input('priceMin'));
+            $products->priceMax($request->input('priceMax'));
         }
 
         if ($request->filled('name')) {
