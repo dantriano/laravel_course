@@ -23,6 +23,9 @@ Route::get('/', function () {
 
 Route::get('/products', 'ProductController@list');
 Route::post('/products', 'ProductController@list');
+Route::get('/products/new', 'ProductController@new');
+//Definimos la accion de save cuando se envia el formulario
+Route::post('/products/new', ['uses' => 'ProductController@save']);
 
 //Route::get('/axios', 'ProductController@list');
 
