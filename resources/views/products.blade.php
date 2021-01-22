@@ -6,7 +6,7 @@
     <h1>Lista de Productos</h1>
     <ul id="productsList" class="list-group">
         @forelse ($productos as $prod)
-        <li class="list-group-item"><img width="100px" src="{{ asset('src/products/'.(($prod->imagen)?$prod->imagen:'../Imagen-no-disponible.png')) }}"> ({{ $prod->type }}) - {{ $prod->price }}€</li>
+        <li class="list-group-item"><img width="100px" src="{{ asset(($prod->imagen)?'storage/products/'.$prod->imagen:'img/Imagen-no-disponible.png') }}"> ({{ $prod->type }}) - {{ $prod->price }}€</li>
         @empty
         <p>No products</p>
         @endforelse

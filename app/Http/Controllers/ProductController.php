@@ -25,7 +25,7 @@ class ProductController extends Controller
         //guardamos la imagen en public/src/products para que los usuarios puedan
         //tener acceso
         $file = $request->file('imagen');
-        $destinationPath = 'src/products';
+        $destinationPath = 'storage/products';
         $originalFile = $file->getClientOriginalName();
         $file->move($destinationPath, $originalFile);
         
