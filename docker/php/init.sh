@@ -34,7 +34,8 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 composer install
 npm install
 
-php artisan migrate:install
+#php artisan migrate:install
+php artisan migrate
 php artisan migrate --seed
 
 php-fpm
