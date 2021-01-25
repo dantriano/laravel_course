@@ -22,7 +22,6 @@ Route::get('/', function () {
 //Route::post('/login', 'LoginController@login')->name('login');
 
 Route::get('/products', 'ProductController@list');
-//Route::post('/products', 'ProductController@list');
 Route::post('/products/addToChart', 'ProductController@addToChart');
 
 Route::get('/products/new', 'ProductController@new');

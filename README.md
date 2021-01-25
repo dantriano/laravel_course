@@ -11,3 +11,10 @@ En este proyecto se van desarrollando paso a paso las diferentes funcionalidades
 - En la base de datos guardamos el nombre de la imagen, para ello añadimos una nueva columna al migration con un nuevo archivo de migración
 - La imagen la guardamos con **$request->imagen->store('folder')** o **$file->move($destinationPath, $originalFile);**
 - Añadimos la foto para que se muestre en la lista de productos
+
+## Release 4.0: Añadir producto y mantener en sesion
+
+- **ProductController.php:** Añadimos el metodo addToChart que carga los productos guardados en sesion **carrito** y añade los productos añadidos por el usuario. Luego redirige a la página que le solicitó el request
+- **app.plade.php:** Añadimos en la cabecera una lista de productos obtenidos de la sesion **carrito**.
+- Añadimos un botón que se encargará de borrar todos los productos de la session **carrito**
+

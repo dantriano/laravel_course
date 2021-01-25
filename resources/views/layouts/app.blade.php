@@ -1,6 +1,3 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -80,19 +77,19 @@
 
 <body>
     <div class="flex-center position-ref">
-        @if (Route::has('login'))
         <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
-
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
+            Numero de produtos: {{sizeof(app('request')->session()->get('carrito'))}}
+            <input type="button" value="Borrar Carrito" class="btn btn-primary">
+            <ul>
+                @forelse (app('request')->session()->get('carrito') as $producto)
+                <li class="list-group-item">
+                   {{$producto}}
+                </li>
+                @empty
+                <p>No products in chart</p>
+                @endforelse
+            </ul>
         </div>
-        @endif
         <main class="container">
             @yield('content')
         </main>

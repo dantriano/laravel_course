@@ -20,7 +20,7 @@ class ProductController extends Controller
         //El problema es que esa carpeta es privada asi que si queremos que los usuarios vean ls fotos
         //de los productos guardaremos la foto en una carpeta publica
         //$request->imagen->store('products');
-        
+
         //Metodo B (carpeta publica y nombre del file original)
         //guardamos la imagen en public/src/products para que los usuarios puedan
         //tener acceso
@@ -28,8 +28,8 @@ class ProductController extends Controller
         $destinationPath = 'storage/products';
         $originalFile = $file->getClientOriginalName();
         $file->move($destinationPath, $originalFile);
-        
-        
+
+
         //Creamos un nuevo producto
         $product = new Product;
         $product->name = $request->input('name');
@@ -76,7 +76,17 @@ class ProductController extends Controller
     {
         return view('new_product');
     }
-    public function addToChart(){
-        echo 1;
+    public function addToChart(ProductListRequest $request)
+    {
+        $carrito = $request->session()->get('carrito', []);
+        array_push($carrito, $request->input('productname'));
+        $request->session()->put('carrito', $carrito);
+        
+        //Redirect to page who send the request:
+        return redirect(url()->previous());
+    }
+    public function removeToChart(ProductListRequest $request)
+    {
+        //Hacer la función para borrar
     }
 }
