@@ -78,12 +78,14 @@
 <body>
     <div class="flex-center position-ref">
         <div class="top-right links">
-            Numero de produtos: {{sizeof(app('request')->session()->get('carrito'))}}
+            Numero de produtos: {{sizeof(app('request')->session()->get('carrito',[]))}}
+            @if(app('request')->session()->has('carrito'))
             <input type="button" value="Borrar Carrito" class="btn btn-primary">
+            @endif
             <ul>
-                @forelse (app('request')->session()->get('carrito') as $producto)
+                @forelse (app('request')->session()->get('carrito',[]) as $producto)
                 <li class="list-group-item">
-                   {{$producto}}
+                    {{$producto}}
                 </li>
                 @empty
                 <p>No products in chart</p>
