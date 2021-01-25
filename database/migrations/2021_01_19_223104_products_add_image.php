@@ -15,7 +15,7 @@ class ProductsAddImage extends Migration
     {
 
         Schema::table('products', function (Blueprint $table) {
-            $table->string('imagen');
+            $table->string('imagen')->default('1');
         });
     }
 
