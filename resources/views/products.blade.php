@@ -6,7 +6,15 @@
     <h1>Lista de Productos</h1>
     <ul id="productsList" class="list-group">
         @forelse ($productos as $prod)
-        <li class="list-group-item"><img width="100px" src="{{ asset(($prod->imagen)?'storage/products/'.$prod->imagen:'img/Imagen-no-disponible.png') }}"> ({{ $prod->type }}) - {{ $prod->price }}€</li>
+        <li class="list-group-item">
+            <img width="100px" src="{{ asset(($prod->imagen)?'storage/products/'.$prod->imagen:'img/Imagen-no-disponible.png') }}"> ({{ $prod->type }}) - {{ $prod->price }}€
+            <div class="form-group">
+                <form method="post" action={{ action('ProductController@addToChart') }} >
+                    <input name="productid" value="{{$prod->id}}">
+                    <input type="submit" value="Add product" class="btn btn-primary">
+                </form>
+            </div>
+        </li>
         @empty
         <p>No products</p>
         @endforelse

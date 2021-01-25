@@ -76,4 +76,7 @@ class ProductController extends Controller
     {
         return view('new_product');
     }
+    public function addToChart(){
+        echo 1;
+    }
 }

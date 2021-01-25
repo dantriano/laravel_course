@@ -22,9 +22,11 @@ Route::get('/', function () {
 //Route::post('/login', 'LoginController@login')->name('login');
 
 Route::get('/products', 'ProductController@list');
-Route::post('/products', 'ProductController@list');
+//Route::post('/products', 'ProductController@list');
+Route::post('/products/addToChart', 'ProductController@addToChart');
+
 Route::get('/products/new', 'ProductController@new');
-//Definimos la accion de save cuando se envia el formulario
+//Para el formulario. definimos la accion de save cuando se envia el formulario
 Route::post('/products/new', 'ProductController@save');
 
 //Route::get('/axios', 'ProductController@list');

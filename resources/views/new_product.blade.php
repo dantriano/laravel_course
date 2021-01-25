@@ -36,10 +36,10 @@
 </div>
 
 @if(app('request')->has('success'))
-    @if(app('request')->input('success'))
-    <div class="alert alert-success">
-        Producto guardado con exito
-    </div>
-    @endif
+@if(app('request')->input('success'))
+<div class="alert alert-success">
+    Producto guardado con exito
+</div>
+@endif
 @endif
 @endsection
