@@ -13,6 +13,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
+        //Illuminate\Database\QueryException::class,
         //
     ];
 
@@ -50,6 +51,10 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof \Illuminate\Database\QueryException) {
+            //Do when PDO exception
+            //echo 1;
+        }
         return parent::render($request, $exception);
     }
 }

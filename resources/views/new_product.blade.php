@@ -34,9 +34,12 @@
         </form>
     </div>
 </div>
-
 @if(app('request')->has('success'))
-@if(app('request')->input('success'))
+@if (session('error'))
+<div class="alert alert-danger">
+    {{ session('error') }}
+</div>
+@else
 <div class="alert alert-success">
     Producto guardado con exito
 </div>

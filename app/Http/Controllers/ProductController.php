@@ -4,43 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Http\Requests\ProductListRequest;
+use App\Services\UploadFileService;
+
+use App\Exceptions\NewProductException;
+use App\Exceptions\UploadFileException;
 
 class ProductController extends Controller
 {
-    public $product;
-
+    private $product;
+    private $uploadService;
+    private $error = '';
     public function __construct()
     {
         $this->product = new Product();
     }
-    public function save(ProductListRequest $request)
+    public function save(ProductListRequest $request, UploadFileService $UploadFileService)
     {
-        //Metodo A (carpeta privada y nombre del file aleatorio)
-        //Esta sentencia guarda facilmente el archivo en la ruta  storage/app/products
-        //El problema es que esa carpeta es privada asi que si queremos que los usuarios vean ls fotos
-        //de los productos guardaremos la foto en una carpeta publica
-        //$request->imagen->store('products');
-
-        //Metodo B (carpeta publica y nombre del file original)
-        //guardamos la imagen en public/src/products para que los usuarios puedan
-        //tener acceso
-        $file = $request->file('imagen');
-        $destinationPath = 'storage/products';
-        $originalFile = $file->getClientOriginalName();
-        $file->move($destinationPath, $originalFile);
-
-
-        //Creamos un nuevo producto
-        $product = new Product;
-        $product->name = $request->input('name');
-        $product->desc  = $request->input('desc');
-        $product->price  = $request->input('price');
-        $product->type  = $request->input('type');
-        $product->imagen  = $request->imagen->getClientOriginalName();
-        $success = $product->save();
-
+        $success = false;
+        try {
+            //Use uploadService (can throw UploadFileException)
+            $this->uploadService = $UploadFileService;
+            $this->uploadService->uploadFile($request->file('imagen'));
+            
+            //Creamos un nuevo producto
+            $product = new Product;
+            $product->imagen  = $request->imagen->getClientOriginalName();
+            $product->name = $request->input('name');
+            $product->desc  = $request->input('desc');
+            $product->price  = $request->input('price');
+            $product->type  = $request->input('type');
+            //Save new product (can throw QueryException)
+            $success = $product->save();
+        } catch (UploadFileException $exception) {
+            $this->error = $exception->getMessage();
+        } catch ( \Illuminate\Database\QueryException $exception) {
+            $this->error = "Error con los datos introducidos";
+        }
         //Redirigimos a la pagina del formulario de nuevo producto pasandole el resultado de registro
-        return redirect()->action([ProductController::class, 'new'], ['success' => $success]);
+        return redirect()->action([ProductController::class, 'new'], ['success' => $success])->withError($this->error);
     }
     public function list(ProductListRequest $request)
     {
@@ -81,7 +82,7 @@ class ProductController extends Controller
         $carrito = $request->session()->get('carrito', []);
         array_push($carrito, $request->input('productname'));
         $request->session()->put('carrito', $carrito);
-        
+
         //Redirect to page who send the request:
         return redirect(url()->previous());
     }
