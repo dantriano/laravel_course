@@ -35,7 +35,7 @@ composer install
 npm install
 
 #php artisan migrate:install
-php artisan migrate
-php artisan migrate --seed
+#php artisan migrate
+#php artisan migrate --seed
 
 php-fpm
