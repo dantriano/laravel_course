@@ -18,3 +18,18 @@ En este proyecto se van desarrollando paso a paso las diferentes funcionalidades
 - **app.plade.php:** Añadimos en la cabecera una lista de productos obtenidos de la sesion **carrito**.
 - Añadimos un botón que se encargará de borrar todos los productos de la session **carrito**
 
+## Release 5.0: Gestionar Excepciones
+
+- **ProductController.php** Englobamos las acciones de subir archivo e insertar product dentro de un try catch que gestionará los dos posibles errores que se pueden producir: archivo no añadido y fallo al insertar en base de datos. Cada uno de ellos con su propio catch: **UploadFileException** y **\Illuminate\Database\QueryException** (o \PDOException)
+
+- **Providers\UploadFileProvider** nos permite utilizar el servicio de **UploadFileService** en cualquier lugar de nuestra aplicación
+
+- **config\app.php** añadimos el provedor **App\Providers\UploadFileProvider::class**
+
+- **Services\UploadFileService** establece las acciones necesarias para subir un archivo. Definiendolo como servicio puede utilizarse en todos los controladores gracias a que se ha vinculado con el provider **Providers\UploadFileProvider** y de esta manera se podrá utilizar con tan solo declararlo en el __constructor (u otro metodo) de cualquier controllador
+
+- **Exceptions\UploadFileException** clase especifica para tratar todos los errores sobre la subida de archivos. Por ejemplo mensajes personalizados o acciones alternativas
+
+- **view\new_product.php** añadimos el mensaje de error que nos proporciona el controlador a traves de session
+
+- **Exceptions\Handler** Por el Handler pasan todas las excepciones, por lo que podriamos definir acciones determinadas al lanzarse una excepción. Por ejemplo: **if ($exception instanceof \Illuminate\Database\QueryException)...**

@@ -6,7 +6,6 @@ use App\Models\Product;
 use App\Http\Requests\ProductListRequest;
 use App\Services\UploadFileService;
 
-use App\Exceptions\NewProductException;
 use App\Exceptions\UploadFileException;
 
 class ProductController extends Controller
@@ -36,7 +35,8 @@ class ProductController extends Controller
             //Save new product (can throw QueryException)
             $success = $product->save();
         } catch (UploadFileException $exception) {
-            $this->error = $exception->getMessage();
+            //$this->error = $exception->getMessage();
+            $this->error = $exception->customMessage();
         } catch ( \Illuminate\Database\QueryException $exception) {
             $this->error = "Error con los datos introducidos";
         }
